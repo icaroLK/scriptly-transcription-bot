@@ -1,7 +1,7 @@
 # telegram-transcription
 
-A Telegram bot that transcribes voice notes, audio files, and video notes — including
-WhatsApp-style `.ogg`/`.opus` files — using the Groq Whisper API.
+A Telegram bot that transcribes voice notes, audio files, and video notes (including
+WhatsApp-style `.ogg`/`.opus` files) using the Groq Whisper API.
 
 How it works: any audio/video message the bot receives is downloaded, converted to
 mp3 with `ffmpeg` (this normalizes every input format), and sent to Groq's
@@ -60,7 +60,7 @@ Telegram, find your bot, send `/start`, then send it a voice note or audio file.
 
 ## 5. Deploying later (free VPS)
 
-Nothing about this script changes when you move it to a server — it's the same
+Nothing about this script changes when you move it to a server it's the same
 `bot.py` polling Telegram, so no public URL/webhook is needed.
 
 1. Copy the whole project folder to the server (or `git clone` your repo there).
