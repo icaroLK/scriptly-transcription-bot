@@ -3,7 +3,7 @@
 This bot only processes the audio or video you send it in order to generate a
 transcription.
 
-- Files are deleted immediately after transcription — nothing is stored, logged,
+- Files are deleted immediately after transcription. Nothing is stored, logged,
   or shared.
 - Transcription is performed via the [Groq API](https://groq.com); see Groq's own
   [privacy policy](https://groq.com/privacy-policy/) for how they handle data in

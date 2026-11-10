@@ -52,7 +52,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         "👋 Hey, I'm your transcription bot.\n\n"
         "What I can transcribe:\n"
         "🎤 Voice notes\n"
-        "🎵 Audio files — mp3, wav, m4a...\n"
+        "🎵 Audio files: mp3, wav, m4a...\n"
         "💬 WhatsApp voice notes (.ogg/.opus)\n"
         "📹 Video notes\n\n"
         "Drop one in and I'll send the text back in a few seconds."

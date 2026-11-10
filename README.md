@@ -5,8 +5,8 @@
 <h1 align="center">Scriptly</h1>
 
 <p align="center">
-  A Telegram bot that transcribes voice notes, audio files, and video — including
-  WhatsApp-style <code>.ogg</code>/<code>.opus</code> files — using the Groq Whisper API.
+  A Telegram bot that transcribes voice notes, audio files, and video, including
+  WhatsApp-style <code>.ogg</code>/<code>.opus</code> files, using the Groq Whisper API.
 </p>
 
 <p align="center">
@@ -75,7 +75,7 @@ Telegram, find your bot, send `/start`, then send it a voice note or audio file.
 
 ## Notes
 
-- The bot only keeps audio in a temp directory for the duration of one request —
-  nothing is stored permanently.
+- The bot only keeps audio in a temp directory for the duration of one request.
+  Nothing is stored permanently.
 - `GROQ_MODEL` in `.env` can be swapped to `whisper-large-v3` for max accuracy
   (slower) instead of the default `whisper-large-v3-turbo` (fast).
