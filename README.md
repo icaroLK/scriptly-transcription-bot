@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logo.webp" width="120" alt="Scriptly logo">
+  <img src="assets/cropped_logo.png" width="120" alt="Scriptly logo">
 </p>
 
 <h1 align="center">Scriptly</h1>
