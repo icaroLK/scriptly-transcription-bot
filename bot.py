@@ -1,5 +1,6 @@
 import logging
 import os
+import shutil
 import subprocess
 import tempfile
 from pathlib import Path
@@ -15,6 +16,29 @@ TELEGRAM_BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 GROQ_API_KEY = os.environ["GROQ_API_KEY"]
 GROQ_MODEL = os.environ.get("GROQ_MODEL", "whisper-large-v3-turbo")
 
+
+def find_ffmpeg() -> str:
+    env_path = os.environ.get("FFMPEG_PATH")
+    if env_path and Path(env_path).exists():
+        return env_path
+
+    on_path = shutil.which("ffmpeg")
+    if on_path:
+        return on_path
+
+    winget_packages = Path(os.environ.get("LOCALAPPDATA", "")) / "Microsoft" / "WinGet" / "Packages"
+    if winget_packages.exists():
+        matches = list(winget_packages.glob("Gyan.FFmpeg_*/**/bin/ffmpeg.exe"))
+        if matches:
+            return str(matches[0])
+
+    raise RuntimeError(
+        "ffmpeg not found. Install it (winget install ffmpeg) or set FFMPEG_PATH in .env"
+    )
+
+
+FFMPEG_BIN = find_ffmpeg()
+
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s"
 )
@@ -25,14 +49,19 @@ groq_client = Groq(api_key=GROQ_API_KEY)
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text(
-        "Send me a voice note, audio file, or video note (any format - mp3, ogg/opus "
-        "from WhatsApp, m4a, wav, etc.) and I'll reply with the transcription."
+        "👋 Hey, I'm your transcription bot.\n\n"
+        "What I can transcribe:\n"
+        "🎤 Voice notes\n"
+        "🎵 Audio files — mp3, wav, m4a...\n"
+        "💬 WhatsApp voice notes (.ogg/.opus)\n"
+        "📹 Video notes\n\n"
+        "Drop one in and I'll send the text back in a few seconds."
     )
 
 
 def convert_to_mp3(input_path: Path, output_path: Path) -> None:
     result = subprocess.run(
-        ["ffmpeg", "-y", "-i", str(input_path), "-ar", "16000", "-ac", "1", str(output_path)],
+        [FFMPEG_BIN, "-y", "-i", str(input_path), "-ar", "16000", "-ac", "1", str(output_path)],
         capture_output=True,
         text=True,
     )
@@ -51,7 +80,9 @@ def transcribe(audio_path: Path) -> str:
 
 async def handle_audio(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     message = update.message
-    audio_obj = message.voice or message.audio or message.video_note or message.document
+    audio_obj = (
+        message.voice or message.audio or message.video_note or message.video or message.document
+    )
     if audio_obj is None:
         return
 
@@ -89,7 +120,7 @@ def main() -> None:
     app.add_handler(CommandHandler("start", start))
     app.add_handler(
         MessageHandler(
-            filters.VOICE | filters.AUDIO | filters.VIDEO_NOTE | filters.Document.AUDIO,
+            filters.VOICE | filters.AUDIO | filters.VIDEO_NOTE | filters.VIDEO | filters.Document.AUDIO,
             handle_audio,
         )
     )
