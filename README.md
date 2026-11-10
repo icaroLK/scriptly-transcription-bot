@@ -1,11 +1,25 @@
-# telegram-transcription
+<p align="center">
+  <img src="assets/logo.webp" width="120" alt="Scriptly logo">
+</p>
 
-A Telegram bot that transcribes voice notes, audio files, and video notes (including
-WhatsApp-style `.ogg`/`.opus` files) using the Groq Whisper API.
+<h1 align="center">Scriptly</h1>
+
+<p align="center">
+  A Telegram bot that transcribes voice notes, audio files, and video — including
+  WhatsApp-style <code>.ogg</code>/<code>.opus</code> files — using the Groq Whisper API.
+</p>
+
+<p align="center">
+  <a href="https://t.me/kucha_transcription_bot">Try it on Telegram →</a>
+</p>
+
+<p align="center">
+  <img src="assets/mockup.svg" width="280" alt="Scriptly chat preview">
+</p>
 
 How it works: any audio/video message the bot receives is downloaded, converted to
 mp3 with `ffmpeg` (this normalizes every input format), and sent to Groq's
-`whisper-large-v3-turbo` model for transcription. The reply is the transcribed text.
+Whisper API for transcription. The reply is the transcribed text.
 
 ## 1. Prerequisites
 
