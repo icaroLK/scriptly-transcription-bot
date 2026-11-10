@@ -49,7 +49,7 @@ groq_client = Groq(api_key=GROQ_API_KEY)
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text(
-        "👋 Hey, I'm your transcription bot.\n\n"
+        "👋 Hey, I'm Scriptly, your transcription bot.\n\n"
         "What I can transcribe:\n"
         "🎤 Voice notes\n"
         "🎵 Audio files: mp3, wav, m4a...\n"
